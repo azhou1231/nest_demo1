@@ -1,0 +1,8 @@
+Post http://localhost:3000/testapi/goods/addGoods
+Content-Type: application/json
+
+{
+    "id": 4, 
+    "goodsname": "nb", 
+    "goodstype": "shoes"
+}
