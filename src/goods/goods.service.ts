@@ -1,36 +1,74 @@
 import { Injectable } from '@nestjs/common';
+import { Like, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Goods } from './entities/goods.entity';
 
 @Injectable()
 export class GoodsService {
-  getGoods() {
-    return {
-      code: 1,
-      goodlist: ['nike', 'Adidas', 'puma'],
-      msg: 'succeed',
-    };
+  constructor(
+    @InjectRepository(Goods) private readonly goods: Repository<Goods>,
+  ) {}
+  // getGoods() {
+  //   return {
+  //     code: 1,
+  //     goodlist: ['nike', 'Adidas', 'puma'],
+  //     msg: 'succeed',
+  //   };
+  // }
+  // addGoods(newgoods: object): void {
+  //   console.log('addsuccess: ', newgoods);
+  // }
+  // getGoodsById(id: number) {
+  //   let goods: any = {};
+  //   switch (id) {
+  //     case 1:
+  //       goods = {
+  //         good: { id: 1, goodsname: 'nike', goodstype: 'shoes' },
+  //       };
+  //       break;
+  //     case 2:
+  //       goods = {
+  //         good: { id: 2, goodsname: 'adidas', goodstype: 'cloth' },
+  //       };
+  //       break;
+  //     case 3:
+  //       goods = {
+  //         good: { id: 3, goodsname: 'puma', goodstype: 'hat' },
+  //       };
+  //       break;
+  //   }
+  //   return goods;
+  // }
+
+  addGoods(newGoods: Goods): any {
+    const data = new Goods();
+    data.goods_name = newGoods['goods_name'];
+    data.goods_type = newGoods['goods_type'];
+    data.price = newGoods['price'];
+    return this.goods.save(data);
   }
-  addGoods(newgoods: object): void {
-    console.log('addsuccess: ', newgoods);
+
+  deleteGoods(id: number): any {
+    return this.goods.delete(id);
   }
-  getGoodsById(id: number) {
-    let goods: any = {};
-    switch (id) {
-      case 1:
-        goods = {
-          good: { id: 1, goodsname: 'nike', goodstype: 'shoes' },
-        };
-        break;
-      case 2:
-        goods = {
-          good: { id: 2, goodsname: 'adidas', goodstype: 'cloth' },
-        };
-        break;
-      case 3:
-        goods = {
-          good: { id: 3, goodsname: 'puma', goodstype: 'hat' },
-        };
-        break;
-    }
-    return goods;
+
+  updateGoods(newData: object): any {
+    const id = newData['id'];
+    const data = new Goods();
+    data.goods_type = newData['goods_type'];
+    data.price = newData['price'];
+    return this.goods.update(id, data);
+  }
+
+  getGoods(): any {
+    return this.goods.find();
+  }
+
+  getGoodsByName(name: string): any {
+    return this.goods.find({
+      where: {
+        goods_name: Like(`%${name}%`),
+      },
+    });
   }
 }

@@ -1,0 +1,8 @@
+Post http://127.0.0.1:3000/testapi/goods/updateGoods
+Content-Type: application/json
+
+{
+    "id": "4", 
+    "goods_type": "hat",
+    "price": 299
+}

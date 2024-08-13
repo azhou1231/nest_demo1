@@ -1,8 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Goods {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', length: 255 })
@@ -13,4 +18,7 @@ export class Goods {
 
   @Column({ type: 'int' })
   price: number;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createtime: Date;
 }

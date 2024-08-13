@@ -1,0 +1,8 @@
+Post http://127.0.0.1:3000/testapi/goods/addGoods
+Content-Type: application/json
+
+{
+    "goods_name": "nike", 
+    "goods_type": "shoes",
+    "price": 599
+}
