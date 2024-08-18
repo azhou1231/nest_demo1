@@ -6,6 +6,22 @@ import { Goods } from './entities/goods.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Goods])],
   controllers: [GoodsController],
-  providers: [GoodsService],
+  providers: [
+    {
+      provide: 'goods',
+      useClass: GoodsService,
+    },
+    {
+      provide: 'goodsArray',
+      useValue: ['nike', 'adidas', 'nb'],
+    },
+    {
+      provide: 'factory',
+      useFactory: () => {
+        console.log('usefactory-------------------');
+        return 'useSucceed';
+      },
+    },
+  ],
 })
 export class GoodsModule {}

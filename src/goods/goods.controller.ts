@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Query,
+  Inject,
   // Request,
   Param,
   // Headers,
@@ -18,42 +19,11 @@ import { GoodsService } from './goods.service';
 
 @Controller('goods')
 export class GoodsController {
-  constructor(private goodsService: GoodsService) {}
-  // @Get('getGoodsList')
-  // getGoodsList(): any {
-  //   return this.goodsService.getGoods();
-  // }
-  // @Post('addGoods1')
-  // addGoods1(@Request() req): any {
-  //   this.goodsService.addGoods(req.body);
-  //   return {
-  //     code: 0,
-  //     msg: 'succeed',
-  //   };
-  // }
-  // @Get('getGoodsById')
-  // getGoodsById(@Query() query): any {
-  //   console.log(query);
-  //   const id: number = parseInt(query.id);
-  //   const data: Goods = this.goodsService.getGoodsById(id);
-  //   return {
-  //     code: 0,
-  //     data: data,
-  //     msg: 'succeed',
-  //   };
-  // }
-  // @Get('findGoodsById/:id/:name')
-  // findGoodsById(@Param() params, @Headers() header) {
-  //   console.log(params);
-  //   console.log(header);
-  //   const id: number = parseInt(params.id);
-  //   const data: Goods = this.goodsService.getGoodsById(id);
-  //   return {
-  //     code: 0,
-  //     data: data,
-  //     msg: 'succeed',
-  //   };
-  // }
+  constructor(
+    @Inject('goods') private goodsService: GoodsService,
+    @Inject('goodsArray') private goodsArray: string,
+    @Inject('factory') private goodsFactory: string,
+  ) {}
 
   @Post('/addGoods')
   addGoods(@Body() body): any {
@@ -84,5 +54,9 @@ export class GoodsController {
   @Get('/getGoodsByName')
   getGoodsByName(@Query() query) {
     return this.goodsService.getGoodsByName(query.name);
+  }
+  @Get('/test')
+  testInject() {
+    return this.goodsArray;
   }
 }
