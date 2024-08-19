@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Goods } from './entities/goods.entity';
+import { GoodsType } from './entities/goodsType.entity';
 
 @Injectable()
 export class GoodsService {
   constructor(
-    @InjectRepository(Goods) private readonly goods: Repository<Goods>,
+    @InjectRepository(GoodsType) private readonly goods: Repository<GoodsType>,
   ) {}
 
-  addGoods(newGoods: Goods): any {
-    const data = new Goods();
-    data.goods_name = newGoods['goods_name'];
-    data.goods_type = newGoods['goods_type'];
-    data.price = newGoods['price'];
+  addGoods(newGoods: GoodsType): any {
+    const data = new GoodsType();
+    // data.goods_name = newGoods['goods_name'];
+    data.goodsType = newGoods['goods_type'];
+    // data.price = newGoods['price'];
     return this.goods.save(data);
   }
 
@@ -23,9 +23,9 @@ export class GoodsService {
 
   updateGoods(newData: object): any {
     const id = newData['id'];
-    const data = new Goods();
-    data.goods_type = newData['goods_type'];
-    data.price = newData['price'];
+    const data = new GoodsType();
+    data.goodsType = newData['goods_type'];
+    // data.price = newData['price'];
     return this.goods.update(id, data);
   }
 
@@ -37,7 +37,7 @@ export class GoodsService {
   getGoodsByName(name: string): any {
     return this.goods.find({
       where: {
-        goods_name: Like(`%${name}%`),
+        goodsType: Like(`%${name}%`),
       },
     });
   }

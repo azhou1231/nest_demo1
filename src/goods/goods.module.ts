@@ -7,11 +7,12 @@ import {
 import { GoodsController } from './goods.controller';
 import { GoodsService } from './goods.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Goods } from './entities/goods.entity';
+import { GoodsType } from './entities/goodsType.entity';
+import { GoodsDetail } from './entities/goodsDetail.entity';
 import { CounterMiddleware } from '../counter/counter.middleware';
 import { OrderService } from '../order/order.service';
 @Module({
-  imports: [TypeOrmModule.forFeature([Goods])],
+  imports: [TypeOrmModule.forFeature([GoodsType, GoodsDetail])],
   controllers: [GoodsController],
   providers: [
     OrderService,
@@ -26,7 +27,7 @@ import { OrderService } from '../order/order.service';
     {
       provide: 'factory',
       useFactory: () => {
-        console.log('usefactory-------------------');
+        console.log('usefactory-------------------' + GoodsType);
         return 'useSucceed';
       },
     },

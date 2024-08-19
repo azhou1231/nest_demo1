@@ -10,6 +10,7 @@ import {
   Body,
 } from '@nestjs/common';
 import { GoodsService } from './goods.service';
+import { OrderService } from '../order/order.service';
 
 // type Goods = {
 //   id: number;
@@ -23,6 +24,8 @@ export class GoodsController {
     @Inject('goods') private goodsService: GoodsService,
     @Inject('goodsArray') private goodsArray: string,
     @Inject('factory') private goodsFactory: string,
+    @Inject('config') private config: object,
+    private orderService: OrderService,
   ) {}
 
   @Post('/addGoods')
@@ -65,5 +68,14 @@ export class GoodsController {
       code: '666',
       msg: '跨域测试',
     };
+  }
+  @Get('/test2')
+  testInject2(): string {
+    return this.orderService.findAll();
+  }
+  @Get('/test3')
+  testInject3(): string {
+    console.log(this.config);
+    return this.config['msg'];
   }
 }

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { GoodsModule } from './goods/goods.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderModule } from './order/order.module';
-
+import { ConfigModule } from './config/config.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -19,6 +19,7 @@ import { OrderModule } from './order/order.module';
     }),
     GoodsModule,
     OrderModule,
+    ConfigModule.forRoot('Omg'),
   ],
   controllers: [],
   providers: [],
