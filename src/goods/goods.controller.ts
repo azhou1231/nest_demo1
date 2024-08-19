@@ -59,4 +59,11 @@ export class GoodsController {
   testInject() {
     return this.goodsArray;
   }
+  @Get('/corsTest')
+  corsTest(): object {
+    return {
+      code: '666',
+      msg: '跨域测试',
+    };
+  }
 }
